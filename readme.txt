@@ -1,0 +1,1 @@
+struts2+hibernate+spring+maven
