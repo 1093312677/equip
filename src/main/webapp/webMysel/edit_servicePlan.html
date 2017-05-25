@@ -1,0 +1,257 @@
+
+<!--设备参数设置-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>Form Validation</title>
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a href="index.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li><a href="parameter_settings.html"><i class="fa fa-th-list"></i> <span>参数设置</span></a></li>
+                <li><a href="working_parameter.html"><i class="fa fa-laptop"></i> <span>运行参数</span></a></li>
+                <li><a href="trouble_warning.html"><i class="fa fa-bullhorn"></i> <span>故障预报警</span></a></li>
+                <li class="menu-list nav-active"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
+                    <ul class="sub-menu-list">
+                        <li class="active"><a href="service_plan.html"> 维护计划</a></li>
+                        <li><a href="service_result.html"> 维护结果</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>库存管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="inventory.html"> 库存记录</a></li>
+                        <li><a href="import.html"> 入库记录</a></li>
+                        <li><a href="export.html">出库记录</a></li>
+                    </ul>
+                </li>
+                <li><a href="life_log.html"><i class="fa fa-file-text"></i> <span>生命日志</span></a></li>
+
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+        <!--toggle button start-->
+        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+        <!--toggle button end-->
+
+        <!--search start-->
+        <form class="searchform" action="index.html" method="post">
+            <input type="text" class="form-control" name="keyword" placeholder="按设备编号查找" />
+        </form>
+        <!--search end-->
+
+        <!--notification menu start -->
+        <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        <!--<div class="page-heading">
+            <h3>
+                Form Validation
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Form</a>
+                </li>
+                <li class="active"> Form Validation </li>
+            </ul>
+        </div>-->
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            维修计划编辑
+                        </header>
+                        <div class="panel-body">
+                            <div class=" form">
+                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="get" action="">
+                                    <div class="form-group ">
+                                        <label for="inventoryName" class="control-label col-lg-2">设备编号</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="inventoryName" name="inventoryName"  minlength="2" type="text" required disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="startTime" class="control-label col-lg-2">预计开始时间</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="startTime" name="startTime"  minlength="2" type="date" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="finishTime" class="control-label col-lg-2">预计结束时间</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="finishTime" name="finishTime"  minlength="2" type="date" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="totalTime" class="control-label col-lg-2">预计总时间</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="totalTime" name="totalTime"  minlength="2" type="number" />
+                                        </div>
+                                    </div>
+                                    <button id="addSpare" class="btn btn-primary">添加一项</button>
+                                    <div  class="form-group " id="spareBox">
+                                        <div class="form-group ">
+                                            <label for="spareName" class="control-label col-lg-2">所需备件名</label>
+                                            <div class="col-lg-4">
+                                                <input class="form-control " id="spareName" type="text"  name="spareName" />
+                                            </div>
+                                            <label for="spareTotal" class="control-label col-lg-2">所需备件数</label>
+                                            <div class="col-lg-4">
+                                                <input class="form-control " id="spareTotal" type="number"  name="spareTotal" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addWorker" class="btn btn-primary">添加一项</button>
+                                    <div  class="form-group " id="workerBox">
+                                        <div class="form-group ">
+                                            <label for="workerName" class="control-label col-lg-2">维修人员</label>
+                                            <div class="col-lg-5">
+                                                <select class="form-control">
+                                                    <option value="1" selected>1001-李四</option>
+                                                    <option value="2">1002-赵五</option>
+                                                    <option value="3">1003-王二</option>
+                                                    <option value="4">1004-张三</option>
+                                                    <option value="5">1005-郑六</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="troubleReason" class="control-label col-lg-2">预计故障原因</label>
+                                        <div class="col-lg-10">
+                                            <textarea id="troubleReason" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary" type="submit" id="save">保存</button>
+                                            <button class="btn btn-default" type="button">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <!--<footer></footer>
+            2014 &copy; AdminEx by ThemeBucket
+        </footer>-->
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script src="js/validation-init.js"></script>
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+<script type="text/javascript">
+    var equipmentNum = $("#equipmentNum").val();
+    $.get("./data.json",function(data){
+    //   var result = JSON.stringify(data);
+      
+    })
+    var spareBoxStr = '<div class="form-group ">\
+                                        <label for="spareName" class="control-label col-lg-2">所需备件名</label>\
+                                        <div class="col-lg-3">\
+                                            <input class="form-control " id="spareName" type="text"  name="spareName" />\
+                                        </div>\
+                                        <label for="spareTotal" class="control-label col-lg-2">所需备件数</label>\
+                                        <div class="col-lg-3">\
+                                            <input class="form-control " id="spareTotal" type="number"  name="spareTotal" />\
+                                        </div>\
+                                    </div>'
+    $("#addSpare").click(function(){
+        $("#spareBox").append(spareBoxStr);
+    });
+
+    var workerBoxStr = ' <div class="form-group ">\
+                                            <label for="workerName" class="control-label col-lg-2">维修人员</label>\
+                                            <div class="col-lg-3">\
+                                                <select class="form-control">\
+                                                    <option value="1">1001-李四</option>\
+                                                    <option value="2">1002-赵五</option>\
+                                                    <option value="3">1003-王二</option>\
+                                                    <option value="4">1004-张三</option>\
+                                                    <option value="5">1005-郑六</option>\
+                                                </select>\
+                                            </div>\
+                                        </div>'
+
+    $("#addWorker").click(function(){
+        $("#workerBox").append(workerBoxStr);
+    });
+</script>
+</body>
+</html>
