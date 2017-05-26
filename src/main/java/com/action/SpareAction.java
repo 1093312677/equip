@@ -109,6 +109,24 @@ public class SpareAction extends SuperAction{
 		return null;
 	}
 	
+	/**
+	 * 查看备件出库记录
+	 * @return
+	 */
+	public String viewSpareOutLog() {
+		
+		List<SpareOutLog> spareOutLogs = spareService.viewSpareOutLog();
+		JSONObject json  = new JSONObject();
+		json.put("data", spareOutLogs);
+		try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 	public Spare getSpare() {
 		return spare;
 	}

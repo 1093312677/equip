@@ -115,7 +115,7 @@
                                             <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="show">
                                         <tr>
                                             <td>一号螺丝</td>
                                             <td>200</td>
@@ -158,17 +158,31 @@
 <script src="js/scripts.js"></script>
 
 <script type="text/javascript">
-    $.ajax({
-        url: './data.json',
-        type: 'GET',
-        dataType: 'jsonp'
-    })
-    .success(function(data){
-        console.log(data);
-    })
-    .error(function(){
-        console.log("请求错误！！！");
-    })
+$.ajax({
+    url: '../spare!viewSpareOutLog.action',
+    type: 'GET',
+    dataType: 'json',
+    
+})
+.success(function(data){
+	var content = "";
+	for(var i=0;i<data.data.length;i++) {
+		content += "<tr>"
+		                +"<td>"+data.data[i].spare.spareName+"</td>"
+		                +"<td>"+data.data[i].number+"</td>"
+		                +"<td>"+data.data[i].time+"</td>"
+		                +"<td>"+data.data[i].getPerson+"</td>"
+		                +"<td>"+data.data[i].outPerson+"</td>"
+		                //+"<td><a href='./edit_inventory.html'>编辑</a></td>"
+		            +"</tr>";
+	}
+    $("#show").html(content);
+	console.log(data);
+})
+.error(function(msg){
+	console.log(msg);
+    console.log("请求错误！！！");
+})
 
 
     $("#addNew").click(function(){

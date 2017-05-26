@@ -23,7 +23,7 @@ public class SpareInLog {
 	private String inPerson;//»Îø‚»À
 	@ManyToOne
 	@JoinColumn(name="spareId")
-	@Basic(fetch=FetchType.LAZY)
+	@Basic(fetch=FetchType.EAGER)
 	private Spare spare;
 	public int getId() {
 		return id;

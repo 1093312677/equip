@@ -1,9 +1,15 @@
 package com.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  * 设备参数
@@ -23,6 +29,15 @@ public class EquipParameter {
 	private String power;
 	private String frequency;
 	private String bd;
+//	和运行参数一对多
+	@OneToMany(mappedBy="equipParameter",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	private List<RunParam> runParams = new ArrayList<RunParam>();
+//	和报警一对多
+	@OneToMany(mappedBy="equipParameter",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	private List<Warning> warnings = new ArrayList<Warning>();
+//	和维护计划一对多
+	@OneToMany(mappedBy="equipParameter",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	private List<MaintainPlan> maintainPlans = new ArrayList<MaintainPlan>();
 	public int getId() {
 		return id;
 	}
@@ -70,6 +85,24 @@ public class EquipParameter {
 	}
 	public void setBd(String bd) {
 		this.bd = bd;
+	}
+	public List<RunParam> getRunParams() {
+		return runParams;
+	}
+	public void setRunParams(List<RunParam> runParams) {
+		this.runParams = runParams;
+	}
+	public List<Warning> getWarnings() {
+		return warnings;
+	}
+	public void setWarnings(List<Warning> warnings) {
+		this.warnings = warnings;
+	}
+	public List<MaintainPlan> getMaintainPlans() {
+		return maintainPlans;
+	}
+	public void setMaintainPlans(List<MaintainPlan> maintainPlans) {
+		this.maintainPlans = maintainPlans;
 	}
 	
 }

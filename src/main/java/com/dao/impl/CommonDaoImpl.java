@@ -13,6 +13,12 @@ public class CommonDaoImpl<T> {
 	private SessionFactory sessionFactory;
 	private Session session;
 	private String hql;
+	
+	public void closeSession() {
+		if(session.isOpen()) {
+			session.close();
+		}
+	}
 	public boolean save(T entity){
 		try{
 			session = sessionFactory.openSession();
@@ -40,10 +46,6 @@ public class CommonDaoImpl<T> {
 			return entitys;
 		}catch(Exception e){
 			return entitys;
-		}finally{
-			if(session.isOpen()) {
-				session.close();
-			}
 		}
 	}
 }

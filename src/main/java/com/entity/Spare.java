@@ -3,12 +3,15 @@ package com.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +29,9 @@ public class Spare {
 	private List<SpareInLog> spareInLogs = new ArrayList<SpareInLog>();
 	@OneToMany(mappedBy="spare",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	private List<SpareOutLog> spareOutLogs = new ArrayList<SpareOutLog>();
+//	备件和设备维护一对多
+	@OneToMany(mappedBy="spare",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	private List<EquipAndMaintain> equipAndMaintains = new ArrayList<EquipAndMaintain>();
 	
 	public int getId() {
 		return id;
@@ -63,6 +69,13 @@ public class Spare {
 	public void setInventoryTotal(int inventoryTotal) {
 		this.inventoryTotal = inventoryTotal;
 	}
+	public List<EquipAndMaintain> getEquipAndMaintains() {
+		return equipAndMaintains;
+	}
+	public void setEquipAndMaintains(List<EquipAndMaintain> equipAndMaintains) {
+		this.equipAndMaintains = equipAndMaintains;
+	}
+	
 	
 	
 }

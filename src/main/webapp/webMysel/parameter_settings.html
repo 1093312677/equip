@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="power" class="control-label col-lg-2">设备温度</label>
+                                        <label for="power" class="control-label col-lg-2">设备功率</label>
                                         <div class="col-lg-10">
                                             <input class="form-control " id="power" type="number" name="power" placeholder="格式：如3000" />
                                         </div>
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="btn btn-primary" type="submit" id="save">保存</button>
                                             <button class="btn btn-default" type="button">重置</button>
                                         </div>
                                     </div>
@@ -201,11 +201,38 @@
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 <script type="text/javascript">
-    var equipmentNum = $("#equipmentNum").val();
-    $.get("./data.json",function(data){
-    //   var result = JSON.stringify(data);
-      
-    })
+$("#save").click(function(){
+	var equipmentNum = $("#equipmentNum").val();
+	var pressure = $("#pressure").val();
+	var flux = $("#flux").val();
+	var temperature = $("#temperature").val();
+	var power = $("#power").val();
+	var frequency = $("#frequency").val();
+	var Bd = $("#Bd").val();
+	
+	$.ajax({
+	    url: '../equip!addEquip.action',
+	    type: 'post',
+	    dataType: 'json',
+	    data:{
+	    	"equipParameter.equipmentName":equipmentNum,
+	    	"equipParameter.pressure":pressure,
+	    	"equipParameter.flux":flux,
+	    	"equipParameter.temperature":temperature,
+	    	"equipParameter.power":power,
+	    	"equipParameter.frequency":frequency,
+	    	"equipParameter.bd":Bd,
+	    }
+	})
+	.success(function(data){
+		alert("成功！")
+	})
+	.error(function(msg){
+		console.log(msg);
+	    console.log("请求错误！！！");
+	})
+})
+
 </script>
 </body>
 </html>

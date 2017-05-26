@@ -49,7 +49,9 @@ public class SpareService {
 		for(int i=0;i<spares.size();i++) {
 			spares.get(i).setSpareInLogs(null);
 			spares.get(i).setSpareOutLogs(null);
+			spares.get(i).setEquipAndMaintains(null);
 		}
+		commonDaoImpl.closeSession();
 		return spares;
 	}
 	
@@ -59,10 +61,28 @@ public class SpareService {
 	 */
 	public List<SpareInLog> viewSpareInLog() {
 		List<SpareInLog> spareInLogs = commonDaoImpl.view("SpareInLog");
-//		for(int i=0;i<spareInLogs.size();i++) {
-//			spareInLogs.get(i).setSpareInLogs(null);
-//			spareInLogs.get(i).setSpareOutLogs(null);
-//		}
+		Spare spare = null;
+		for(int i=0;i<spareInLogs.size();i++) {
+			spare = new Spare();
+			spare.setSpareName(spareInLogs.get(i).getSpare().getSpareName());
+			spareInLogs.get(i).setSpare(spare);
+		}
+		commonDaoImpl.closeSession();
 		return spareInLogs;
+	}
+	/**
+	 * 查看备件出库记录
+	 * @return
+	 */
+	public List<SpareOutLog> viewSpareOutLog() {
+		List<SpareOutLog> spareOutLogs = commonDaoImpl.view("SpareOutLog");
+		Spare spare = null;
+		for(int i=0;i<spareOutLogs.size();i++) {
+			spare = new Spare();
+			spare.setSpareName(spareOutLogs.get(i).getSpare().getSpareName());
+			spareOutLogs.get(i).setSpare(spare);
+		}
+		commonDaoImpl.closeSession();
+		return spareOutLogs;
 	}
 }
