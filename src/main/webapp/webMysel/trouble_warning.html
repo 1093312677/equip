@@ -49,10 +49,10 @@
                 <li><a href="parameter_settings.html"><i class="fa fa-th-list"></i> <span>参数设置</span></a></li>
                 <li><a href="working_parameter.html"><i class="fa fa-laptop"></i> <span>运行参数</span></a></li>
                 <li class="active"><a href="trouble_warning.html"><i class="fa fa-bullhorn"></i> <span>故障预报警</span></a></li>
-                <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
+               <li class="menu-list nav-active"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="service_plan.html"> 维护计划</a></li>
-                        <li><a href="service_result.html"> 维护结果</a></li>
+                        <li class="active"><a href="../equip!viewServicePlan.action"> 维护计划</a></li>
+                        <li><a href="../equip!viewServicePlan.action"> 维护结果</a></li>
                     </ul>
                 </li>
                 <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>库存管理</span></a>
@@ -114,7 +114,7 @@
                                             <th>报警时间</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="show">
                                         <tr>
                                             <td>PLC-1001</td>
                                             <td>压力偏高，压力偏低</td>
@@ -156,19 +156,31 @@
 <script src="js/scripts.js"></script>
 
 <script type="text/javascript">
-    $.ajax({
-        url: './data.json',
+	$.ajax({
+        url: '../warning!viewWarning.action',
         type: 'GET',
-        dataType: 'jsonp'
+        dataType: 'json',
+        
     })
     .success(function(data){
-        console.log(data);
+    	var content = "";
+    	for(var i=0;i<data.data.length;i++) {
+    		content += "<tr>"
+			                +"<td>"+data.data[i].equipParameter.equipmentName+"</td>"
+			                +"<td>"+data.data[i].earlyWarning+"</td>"
+			                +"<td>"+data.data[i].earlyTime+"</td>"
+			                +"<td>"+data.data[i].warning+"</td>"
+			                +"<td>"+data.data[i].warningTime+"</td>"
+			            +"</tr>";
+    	}
+        $("#show").html(content);
     })
-    .error(function(){
+    .error(function(msg){
+    	console.log(msg);
         console.log("请求错误！！！");
     })
-
-
+    
+    
     $("#addNew").click(function(){
         window.location.href="./addNew_troubleWarning.html";
     })

@@ -69,4 +69,20 @@ public class AccountDaoImpl {
 			}
 		}
 	}
+	
+	public boolean save(Object entity) {
+		try{
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.save(entity);
+			session.getTransaction().commit();
+			return true;
+		}catch(Exception e){
+			return false;
+		}finally{
+			if(session.isOpen()) {
+				session.close();
+			}
+		}
+	}
 }

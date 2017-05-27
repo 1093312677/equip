@@ -29,6 +29,7 @@ public class MaintainPlan {
 	private String finishTime;//预计维护结束时间（finishTime）
 	private String totalTime;//预计维护时长（totalTime）
 	private int spareTotal;//所需备件数（spareTotal） 
+	private String troubleReason;
 //	维修计划和设备多对一
 	@ManyToOne
 	@JoinColumn(name="equipParameterId")
@@ -87,6 +88,12 @@ public class MaintainPlan {
 	}
 	public void setMaintainAndWorkers(List<MaintainAndWorker> maintainAndWorkers) {
 		this.maintainAndWorkers = maintainAndWorkers;
+	}
+	public String getTroubleReason() {
+		return troubleReason;
+	}
+	public void setTroubleReason(String troubleReason) {
+		this.troubleReason = troubleReason;
 	}
 	
 	

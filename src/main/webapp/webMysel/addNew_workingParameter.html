@@ -49,10 +49,10 @@
                 <li><a href="parameter_settings.html"><i class="fa fa-th-list"></i> <span>参数设置</span></a></li>
                 <li class="active"><a href="working_parameter.html"><i class="fa fa-laptop"></i> <span>运行参数</span></a></li>
                 <li><a href="trouble_warning.html"><i class="fa fa-bullhorn"></i> <span>故障预报警</span></a></li>
-                <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
+                <li class="menu-list nav-active"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="service_plan.html"> 维护计划</a></li>
-                        <li><a href="service_result.html"> 维护结果</a></li>
+                        <li class="active"><a href="../equip!viewServicePlan.action"> 维护计划</a></li>
+                        <li><a href="../equip!viewServicePlan.action"> 维护结果</a></li>
                     </ul>
                 </li>
                 <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>库存管理</span></a>
@@ -117,10 +117,10 @@
                         </header>
                         <div class="panel-body">
                             <div class=" form">
-                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="get" action="">
+                                <form class="cmxform form-horizontal adminex-form" id="tf" method="get" action="">
                                     <div class="form-group ">
                                         <label for="equipmentNum" class="control-label col-lg-2">设备编号</label>
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-10" id="select">
                                             <input class=" form-control" id="equipmentNum" name="equipmentNum" placeholder="格式：如PLC-1001"  minlength="2" type="text" required />
                                         </div>
                                     </div>
@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="power" class="control-label col-lg-2">设备温度</label>
+                                        <label for="power" class="control-label col-lg-2">设备功率</label>
                                         <div class="col-lg-10">
                                             <input class="form-control " id="power" type="number" name="power" placeholder="格式：如3000" />
                                         </div>
@@ -157,7 +157,7 @@
                                     <div class="form-group ">
                                         <label for="Bd" class="control-label col-lg-2">比特率</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control " id="Bd" type="number" name="Bd" placeholder="格式：如3000" />
+                                            <input class="form-control " id="Bd" type="number" name="bd" placeholder="格式：如3000" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -213,11 +213,45 @@
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 <script type="text/javascript">
-    var equipmentNum = $("#equipmentNum").val();
-    $.get("./data.json",function(data){
-    //   var result = JSON.stringify(data);
-      
-    })
+$.ajax({
+    url: '../equip!viewEquip.action',
+    type: 'GET',
+    dataType: 'json',
+    
+})
+.success(function(data){
+	var content = "<select class='form-control' name='equipId' id='equipId'>";
+	for(var i=0;i<data.data.length;i++) {
+		content += "<option value="+data.data[i].id+">"+data.data[i].equipmentName+"</option>";
+	}
+	content += "</select>";
+    $("#select").html(content);
+})
+.error(function(msg){
+	console.log(msg);
+    console.log("请求错误！！！");
+})
+
+$("#save").click(function(){
+	var form = new FormData(document.getElementById("tf"));
+	console.log(form);
+	$.ajax({
+	    url: '../runParam!addRunParam.action',
+	    type: 'post',
+	    dataType: 'json',
+	    data:form,
+	    processData:false,
+        contentType:false,
+	})
+	.success(function(data){
+		console.log(data);
+		alert("成功！");
+	})
+	.error(function(msg){
+		console.log(msg);
+	    console.log("请求错误！！！");
+	})
+})
 </script>
 </body>
 </html>

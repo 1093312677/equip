@@ -31,6 +31,7 @@ public class EquipAndMaintain {
 	@Basic(fetch=FetchType.LAZY)
 	private MaintainPlan maintainPlan;
 
+	private int needNumber;
 	public int getId() {
 		return id;
 	}
@@ -53,6 +54,14 @@ public class EquipAndMaintain {
 
 	public void setMaintainPlan(MaintainPlan maintainPlan) {
 		this.maintainPlan = maintainPlan;
+	}
+
+	public int getNeedNumber() {
+		return needNumber;
+	}
+
+	public void setNeedNumber(int needNumber) {
+		this.needNumber = needNumber;
 	}
 	
 }

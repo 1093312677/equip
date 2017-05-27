@@ -7,6 +7,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.entity.OutWareHouse;
+import com.entity.Worker;
 import com.service.LoginService;
 
 @ParentPackage("basePackage")
@@ -15,6 +16,7 @@ import com.service.LoginService;
 public class LoginAction {
 	@Autowired
 	private LoginService loginService;
+	private Worker worker;
 	public String login(){
 		System.out.println("ok");
 		loginService.login();
@@ -27,6 +29,13 @@ public class LoginAction {
 		return "login";
 	}
 	
+	public String addWorker() {
+		loginService.addWorker(worker);
+		return null;
+	}
+	
+	
+	
 	private OutWareHouse outWareHouse= new OutWareHouse();
 	public OutWareHouse getOutWareHouse() {
 		return outWareHouse;
@@ -34,6 +43,14 @@ public class LoginAction {
 
 	public void setOutWareHouse(OutWareHouse outWareHouse) {
 		this.outWareHouse = outWareHouse;
+	}
+
+	public Worker getWorker() {
+		return worker;
+	}
+
+	public void setWorker(Worker worker) {
+		this.worker = worker;
 	}
 	
 }

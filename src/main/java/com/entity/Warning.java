@@ -22,7 +22,11 @@ public class Warning {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String earlyWarning;//预警信息
+	
+	private String earlyTime;//预警时间
+	
 	private String warning;//警报信息
+	private String warningTime;//报警时间
 	private String createDate;//
 	@ManyToOne
 	@JoinColumn(name="equipParameterId")
@@ -57,6 +61,18 @@ public class Warning {
 	}
 	public void setEquipParameter(EquipParameter equipParameter) {
 		this.equipParameter = equipParameter;
+	}
+	public String getEarlyTime() {
+		return earlyTime;
+	}
+	public void setEarlyTime(String earlyTime) {
+		this.earlyTime = earlyTime;
+	}
+	public String getWarningTime() {
+		return warningTime;
+	}
+	public void setWarningTime(String warningTime) {
+		this.warningTime = warningTime;
 	}
 	
 	

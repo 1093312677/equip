@@ -49,10 +49,10 @@
                 <li><a href="parameter_settings.html"><i class="fa fa-th-list"></i> <span>参数设置</span></a></li>
                 <li><a href="working_parameter.html"><i class="fa fa-laptop"></i> <span>运行参数</span></a></li>
                 <li><a href="trouble_warning.html"><i class="fa fa-bullhorn"></i> <span>故障预报警</span></a></li>
-                <li class="menu-list nav-active"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
+               <li class="menu-list nav-active"><a href=""><i class="fa fa-cogs"></i> <span>故障维护</span></a>
                     <ul class="sub-menu-list">
-                        <li class="active"><a href="service_plan.html"> 维护计划</a></li>
-                        <li><a href="service_result.html"> 维护结果</a></li>
+                        <li class="active"><a href="../equip!viewServicePlan.action"> 维护计划</a></li>
+                        <li><a href="../equip!viewServicePlan.action"> 维护结果</a></li>
                     </ul>
                 </li>
                 <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>库存管理</span></a>
@@ -117,32 +117,32 @@
                         </header>
                         <div class="panel-body">
                             <div class=" form">
-                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="get" action="">
+                                <form class="cmxform form-horizontal adminex-form" id="tf" method="get" action="">
                                     <div class="form-group ">
                                         <label for="inventoryName" class="control-label col-lg-2">设备编号</label>
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-10" id="select">
                                             <input class=" form-control" id="inventoryName" name="inventoryName"  minlength="2" type="text" required />
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="startTime" class="control-label col-lg-2">预计开始时间</label>
                                         <div class="col-lg-10">
-                                            <input class=" form-control" id="startTime" name="startTime"  minlength="2" type="date" />
+                                            <input class=" form-control" id="startTime" name="maintainPlan.startTime"  minlength="2" type="date" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="finishTime" class="control-label col-lg-2">预计结束时间</label>
                                         <div class="col-lg-10">
-                                            <input class=" form-control" id="finishTime" name="finishTime"  minlength="2" type="date" />
+                                            <input class=" form-control" id="finishTime" name="maintainPlan.finishTime"  minlength="2" type="date" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="totalTime" class="control-label col-lg-2">预计总时间</label>
                                         <div class="col-lg-10">
-                                            <input class=" form-control" id="totalTime" name="totalTime"  minlength="2" type="number" />
+                                            <input class=" form-control" id="totalTime" name="maintainPlan.totalTime"  minlength="2" type="number" required/>
                                         </div>
                                     </div>
-                                    <button id="addSpare" class="btn btn-primary">添加一项</button>
+                                    <span id="addSpare" class="btn btn-primary">添加一项</span>
                                     <div  class="form-group " id="spareBox">
                                         <div class="form-group ">
                                             <label for="spareName" class="control-label col-lg-2">所需备件名</label>
@@ -155,17 +155,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button id="addWorker" class="btn btn-primary">添加一项</button>
+                                    <span id="addWorker" class="btn btn-primary">添加一项</span>
                                     <div  class="form-group " id="workerBox">
                                         <div class="form-group ">
                                             <label for="workerName" class="control-label col-lg-2">维修人员</label>
                                             <div class="col-lg-5">
-                                                <select class="form-control">
-                                                    <option value="1" selected>1001-李四</option>
-                                                    <option value="2">1002-赵五</option>
-                                                    <option value="3">1003-王二</option>
-                                                    <option value="4">1004-张三</option>
-                                                    <option value="5">1005-郑六</option>
+                                                <select class="form-control" name="worker">
                                                 </select>
                                             </div>
                                         </div>
@@ -173,12 +168,12 @@
                                     <div class="form-group ">
                                         <label for="troubleReason" class="control-label col-lg-2">预计故障原因</label>
                                         <div class="col-lg-10">
-                                            <textarea id="troubleReason" class="form-control"></textarea>
+                                            <textarea id="troubleReason" class="form-control" name="maintainPlan.troubleReason"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                            <button class="btn btn-primary" type="submit" id="save">保存</button>
+                                            <span class="btn btn-primary"  id="save">保存</span>
                                             <button class="btn btn-default" type="button">重置</button>
                                         </div>
                                     </div>
@@ -217,41 +212,115 @@
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 <script type="text/javascript">
-    var equipmentNum = $("#equipmentNum").val();
-    $.get("./data.json",function(data){
-    //   var result = JSON.stringify(data);
-      
-    })
-    var spareBoxStr = '<div class="form-group ">\
-                                        <label for="spareName" class="control-label col-lg-2">所需备件名</label>\
-                                        <div class="col-lg-3">\
-                                            <input class="form-control " id="spareName" type="text"  name="spareName" />\
-                                        </div>\
-                                        <label for="spareTotal" class="control-label col-lg-2">所需备件数</label>\
-                                        <div class="col-lg-3">\
-                                            <input class="form-control " id="spareTotal" type="number"  name="spareTotal" />\
-                                        </div>\
-                                    </div>'
-    $("#addSpare").click(function(){
-        $("#spareBox").append(spareBoxStr);
-    });
+$.ajax({
+    url: '../equip!viewEquip.action',
+    type: 'GET',
+    dataType: 'json',
+    
+})
+.success(function(data){
+	var content = "<select class='form-control' name='equipId' id='equipId'>";
+	for(var i=0;i<data.data.length;i++) {
+		content += "<option value="+data.data[i].id+">"+data.data[i].equipmentName+"</option>";
+	}
+	content += "</select>";
+    $("#select").html(content);
+    spare();
+})
+.error(function(msg){
+	console.log(msg);
+    console.log("请求错误！！！");
+})
 
-    var workerBoxStr = ' <div class="form-group ">\
-                                            <label for="workerName" class="control-label col-lg-2">维修人员</label>\
-                                            <div class="col-lg-3">\
-                                                <select class="form-control">\
-                                                    <option value="1">1001-李四</option>\
-                                                    <option value="2">1002-赵五</option>\
-                                                    <option value="3">1003-王二</option>\
-                                                    <option value="4">1004-张三</option>\
-                                                    <option value="5">1005-郑六</option>\
-                                                </select>\
-                                            </div>\
-                                        </div>'
+
+$("#save").click(function(){
+	var form = new FormData(document.getElementById("tf"));
+	console.log(form);
+	$.ajax({
+	    url: '../equip!addServicePlan.action',
+	    type: 'post',
+	    dataType: 'json',
+	    data:form,
+	    processData:false,
+        contentType:false,
+	})
+	.success(function(data){
+		console.log(data);
+		alert("成功！");
+	})
+	.error(function(msg){
+		console.log(msg);
+	    console.log("请求错误！！！");
+	})
+})
+
+   //加载时请求查看员工信息           
+   var workerBoxStr = "";
+   function worker() {
+	   $.ajax({
+		    url: '../equip!viewWorker.action',
+		    type: 'post',
+		    dataType: 'json',
+		})
+		.success(function(data){
+			console.log(data);
+			workerBoxStr += '<div class="form-group ">\
+								<label for="workerName" class="control-label col-lg-2">维修人员</label>\
+								 	<div class="col-lg-3">\
+								 		<select class="form-control" name="worker">';
+			for(var i =0;i<data.data.length;i++) {
+				workerBoxStr += "<option value="+data.data[i].id+">"+data.data[i].no+"-"+data.data[i].name+"</option>";
+			}
+	        workerBoxStr += " </select></div></div>";
+	        $("#workerBox").html(workerBoxStr);
+		})
+		.error(function(msg){
+			console.log(msg);
+		    console.log("请求错误！！！");
+		})       
+   }
+                            
+    //加载时请求查看备件信息  
+    var spareBoxStr =  "";
+    function spare() {
+    	$.ajax({
+    	    url: '../spare!viewSpare.action',
+    	    type: 'post',
+    	    dataType: 'json',
+    	})
+    	.success(function(data){
+    		console.log(data);
+    		spareBoxStr +=  '<div class="form-group ">\
+    					        <label for="spareName" class="control-label col-lg-2">所需备件名</label>\
+    					        <div class="col-lg-3">\
+    					        	<select class="form-control" name="spareName" id="spareName" >';
+    					        	
+          	for(var i =0;i<data.data.length;i++) {
+          		spareBoxStr += "<option value="+data.data[i].id+">"+data.data[i].spareName+"</option>";
+      		}
+          	spareBoxStr += " </select>";
+    		spareBoxStr += '</div>\
+    					        <label for="spareTotal" class="control-label col-lg-2">所需备件数</label>\
+    					        <div class="col-lg-3">\
+    					            <input class="form-control " id="spareTotal" type="number"  name="spareTotal" />\
+    					        </div>\
+    					    </div>';
+    		$("#spareBox").html(spareBoxStr);
+    		worker();
+    	})
+    	.error(function(msg){
+    		console.log(msg);
+    	    console.log("请求错误！！！");
+    	})          
+    }                           
 
     $("#addWorker").click(function(){
         $("#workerBox").append(workerBoxStr);
     });
+    
+	$("#addSpare").click(function(){
+		$("#spareBox").append(spareBoxStr);
+	});
 </script>
 </body>
 </html>
