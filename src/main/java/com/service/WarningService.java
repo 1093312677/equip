@@ -35,6 +35,7 @@ public class WarningService {
 			warnings.get(i).getEquipParameter().setMaintainPlans(null);
 			warnings.get(i).getEquipParameter().setRunParams(null);
 			warnings.get(i).getEquipParameter().setWarnings(null);
+			warnings.get(i).getEquipParameter().setLifeLogs(null);
 		}
 		commonDaoImpl.closeSession();
 		return warnings;

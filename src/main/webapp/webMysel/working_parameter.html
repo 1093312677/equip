@@ -112,11 +112,10 @@
                                             <th>运行温度（℃）</th>
                                             <th>运行比特率（S/Bd）</th>
                                             <th>工作时间（小时）</th>
-                                            <th>维修次数</th>
-                                            <th>操作</th>
+                                            <th>频率</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="show">
                                         <tr>
                                             <td>PLC-1001</td>
                                             <td>500</td>
@@ -124,9 +123,6 @@
                                             <td>350</td>
                                             <td>300</td>
                                             <td>3</td>
-                                            <td>
-                                                <a href="###">详情</a>
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -162,17 +158,31 @@
 <script src="js/scripts.js"></script>
 
 <script type="text/javascript">
-    $.ajax({
-        url: './data.json',
-        type: 'GET',
-        dataType: 'jsonp'
-    })
-    .success(function(data){
-        console.log(data);
-    })
-    .error(function(){
-        console.log("请求错误！！！");
-    })
+$.ajax({
+    url: '../runParam!viewRunParam.action',
+    type: 'GET',
+    dataType: 'json',
+    
+})
+.success(function(data){
+	var content = "";
+	for(var i=0;i<data.data.length;i++) {
+		content += "<tr>"
+		                +"<td>"+data.data[i].equipParameter.equipmentName+"</td>"
+		                +"<td>"+data.data[i].pressure+"</td>"
+		                +"<td>"+data.data[i].temperature+"</td>"
+		                +"<td>"+data.data[i].bd+"</td>"
+		                +"<td>"+data.data[i].workTime+"</td>"
+		                +"<td>"+data.data[i].frequency+"</td>"
+		            +"</tr>";
+	}
+    $("#show").html(content);
+})
+.error(function(msg){
+	console.log(msg);
+    console.log("请求错误！！！");
+})
+
 
 
     $("#addNew").click(function(){

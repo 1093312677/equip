@@ -44,6 +44,7 @@ public class EquipService {
 			equipParameters.get(i).setMaintainPlans(null);
 			equipParameters.get(i).setRunParams(null);
 			equipParameters.get(i).setWarnings(null);
+			equipParameters.get(i).setLifeLogs(null);
 		}
 		commonDaoImpl.closeSession();
 		return equipParameters;

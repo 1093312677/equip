@@ -38,6 +38,9 @@ public class EquipParameter {
 //	和维护计划一对多
 	@OneToMany(mappedBy="equipParameter",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	private List<MaintainPlan> maintainPlans = new ArrayList<MaintainPlan>();
+//	和生命日志一对多
+	@OneToMany(mappedBy="equipParameter",cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	private List<LifeLog> lifeLogs = new ArrayList<LifeLog>();
 	public int getId() {
 		return id;
 	}
@@ -103,6 +106,12 @@ public class EquipParameter {
 	}
 	public void setMaintainPlans(List<MaintainPlan> maintainPlans) {
 		this.maintainPlans = maintainPlans;
+	}
+	public List<LifeLog> getLifeLogs() {
+		return lifeLogs;
+	}
+	public void setLifeLogs(List<LifeLog> lifeLogs) {
+		this.lifeLogs = lifeLogs;
 	}
 	
 }

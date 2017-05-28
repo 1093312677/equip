@@ -117,28 +117,28 @@
                         </header>
                         <div class="panel-body">
                             <div class=" form">
-                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="get" action="">
+                                <form class="cmxform form-horizontal adminex-form" id="tf" method="get" action="">
                                     <div class="form-group ">
                                         <label for="equipmentNum" class="control-label col-lg-2">设备编号</label>
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-10" id="select">
                                             <input class=" form-control" id="equipmentNum" name="equipmentNum"  minlength="2" type="text" required />
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="outerMsg" class="control-label col-lg-2">出厂信息</label>
                                         <div class="col-lg-10">
-                                            <textarea class="form-control " id="outerMsg" name="outerMsg"></textarea>
+                                            <textarea class="form-control " id="lifeLog.outerMsg" name="lifeLog.outerMsg"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="configMsg" class="control-label col-lg-2">配置信息</label>
                                         <div class="col-lg-10">
-                                            <textarea class="form-control " id="configMsg" name="configMsg"></textarea>
+                                            <textarea class="form-control " id="lifeLog.configMsg" name="lifeLog.configMsg"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                            <button class="btn btn-primary" type="submit" id="save">保存</button>
+                                            <span class="btn btn-primary" type="submit" id="save">保存</span>
                                             <button class="btn btn-default" type="button">重置</button>
                                         </div>
                                     </div>
@@ -177,11 +177,45 @@
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 <script type="text/javascript">
-    var equipmentNum = $("#equipmentNum").val();
-    $.get("./data.json",function(data){
-    //   var result = JSON.stringify(data);
-      
-    })
+$.ajax({
+    url: '../equip!viewEquip.action',
+    type: 'GET',
+    dataType: 'json',
+    
+})
+.success(function(data){
+	var content = "<select class='form-control' name='equipId' id='equipId'>";
+	for(var i=0;i<data.data.length;i++) {
+		content += "<option value="+data.data[i].id+">"+data.data[i].equipmentName+"</option>";
+	}
+	content += "</select>";
+    $("#select").html(content);
+})
+.error(function(msg){
+	console.log(msg);
+    console.log("请求错误！！！");
+})
+
+$("#save").click(function(){
+	var form = new FormData(document.getElementById("tf"));
+	console.log(form);
+	$.ajax({
+	    url: '../lifeLog!addLifeLog.action',
+	    type: 'post',
+	    dataType: 'json',
+	    data:form,
+	    processData:false,
+        contentType:false,
+	})
+	.success(function(data){
+		console.log(data);
+		alert("成功！");
+	})
+	.error(function(msg){
+		console.log(msg);
+	    console.log("请求错误！！！");
+	})
+})
 </script>
 </body>
 </html>

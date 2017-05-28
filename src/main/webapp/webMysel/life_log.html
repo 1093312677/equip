@@ -114,7 +114,7 @@
                                             <th>历史维修信息</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="show">
                                         <tr>
                                             <td>PLC-1001</td>
                                             <td>1、2016年03出厂；2、红光机械厂出厂；3、质检员：A03</td>
@@ -156,18 +156,29 @@
 <script src="js/scripts.js"></script>
 
 <script type="text/javascript">
-    $.ajax({
-        url: './data.json',
-        type: 'GET',
-        dataType: 'jsonp'
-    })
-    .success(function(data){
-        console.log(data);
-    })
-    .error(function(){
-        console.log("请求错误！！！");
-    })
-
+$.ajax({
+    url: '../lifeLog!viewLifeLog.action',
+    type: 'GET',
+    dataType: 'json',
+    
+})
+.success(function(data){
+	var content = "";
+	for(var i=0;i<data.data.length;i++) {
+		content += "<tr>"
+		                +"<td>"+data.data[i].equipParameter.equipmentName+"</td>"
+		                +"<td>"+data.data[i].outerMsg+"</td>"
+		                +"<td>"+data.data[i].configMsg+"</td>"
+		                +"<td><a href='trouble_warning.html'>查看历史故障信息</a></td>"
+		                +"<td><a href='../equip!viewServicePlan.action'>查看历史维修信息</a></td>"
+		            +"</tr>";
+	}
+    $("#show").html(content);
+})
+.error(function(msg){
+	console.log(msg);
+    console.log("请求错误！！！");
+})
 
     $("#addNew").click(function(){
         window.location.href="./addNew_lifeLog.html";
